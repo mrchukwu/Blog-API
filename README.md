@@ -21,6 +21,28 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+## Blog API with Nestjs + TypeScript
+
+A Blog API created with Nestjs, a Nodjes framework and TypeScript. This API enables the user:
+- Login
+- Register
+- Logout
+- Create a post
+- Delete a post
+- Update a post
+- Get all posts
+- Get a post
+- Get all users
+- Get a user
+
+Using it's endpoints, you can perform all the operations mentioned above. The API endpoint is documentated with Swagger UI.
+
+Here is the link to the Swagger UI: ( http://localhost:3000/api ) for frotend developers and the code is documented using comopodoc for backeend developers. You can check the backend documantation at (http://127.0.0.1:3001/index.html).
+
+
+
+
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
