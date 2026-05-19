@@ -137,6 +137,19 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Class to connect to Users table and perform business operations</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">         and finding users by ID. Handles database operations for the
+         users table.</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">// Inject UsersService into a controller
+constructor(private readonly usersService: UsersService) {}
+
+
+// Use it to find users
+const users = await usersService.findAll({ role: &#39;student&#39; }, 10, 1);</code></pre></div>
+            </p>
 
 
 
@@ -184,12 +197,15 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/users/providers/users.service.ts:6</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/users/providers/users.service.ts:26</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Creates an instance of UsersService</p>
+<p>Uses forwardRef to resolve circular dependency between UsersModule and AuthModule</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -198,6 +214,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -212,6 +229,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The authentication service for verifying user credentials</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -249,8 +272,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="12"
-                                    class="link-to-prism">src/users/providers/users.service.ts:12</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/users/providers/users.service.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -267,6 +290,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -281,6 +305,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The parameters to filter the users by</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>limit</td>
@@ -293,6 +323,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The limit of users to return</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>page</td>
@@ -305,6 +341,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The page of users to return</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -314,7 +356,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>array of users</p>
+
                             </div>
                 </td>
             </tr>
@@ -342,8 +385,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">src/users/providers/users.service.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/users/providers/users.service.ts:77</a></div>
                         </td>
                     </tr>
 
@@ -360,6 +403,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -374,6 +418,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>: string - The ID of the user to find</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -383,7 +431,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>user object</p>
+
                             </div>
                 </td>
             </tr>
@@ -399,13 +448,52 @@
 import { GetUsersParamDto } from &#x27;../dtos/get-users-param.dto&#x27;;
 import { AuthService } from &#x27;src/auth/providers/auth.service&#x27;;
 
+/**
+ * Class to connect to Users table and perform business operations
+ *
+ * @class
+ * @description Provides methods for user management including finding all users
+ *              and finding users by ID. Handles database operations for the
+ *              users table.
+ *
+ * @category Services
+ * @since 1.0.0
+ *
+ * @example
+ * &#x60;&#x60;&#x60;typescript
+ * // Inject UsersService into a controller
+ * constructor(private readonly usersService: UsersService) {}
+ *
+ * // Use it to find users
+ * const users &#x3D; await usersService.findAll({ role: &#x27;student&#x27; }, 10, 1);
+ * &#x60;&#x60;&#x60;
+ */
 @Injectable()
 export class UsersService {
+  /**
+   * Creates an instance of UsersService
+   *
+   * @constructor
+   * @description Injects the AuthService to handle authentication checks
+   *
+   * @param authService - The authentication service for verifying user credentials
+   *
+   * @remarks
+   * Uses forwardRef to resolve circular dependency between UsersModule and AuthModule
+   */
   constructor(
     @Inject(forwardRef(() &#x3D;&gt; AuthService))
     private readonly authService: AuthService,
   ) {}
 
+  /**
+   * @description This method is used to find all users
+   * @method findAll
+   * @param {GetUsersParamDto} getUsersParamDto - The parameters to filter the users by
+   * @param {number} limit - The limit of users to return
+   * @param {number} page - The page of users to return
+   * @returns array of users
+   */
   public findAll(
     getUsersParamDto: GetUsersParamDto,
     limit: number,
@@ -414,7 +502,6 @@ export class UsersService {
     const isAuth &#x3D; this.authService.isAuth();
     console.log(isAuth);
 
-    // check if user is authenticated
     return [
       {
         firstName: &#x27;John&#x27;,
@@ -426,7 +513,13 @@ export class UsersService {
       },
     ];
   }
-  // find a user by ID
+
+  /**
+   * @description This method is used to find a user by ID
+   * @method findOneById
+   * @param id: string - The ID of the user to find
+   * @returns user object
+   */
   public findOneById(id: string) {
     return {
       id: 1234,
@@ -434,7 +527,6 @@ export class UsersService {
       lastName: &#x27;john@doe.com&#x27;,
     };
   }
-
 }
 </code></pre>
     </div>
