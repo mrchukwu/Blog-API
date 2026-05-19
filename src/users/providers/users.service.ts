@@ -4,31 +4,16 @@ import { AuthService } from 'src/auth/providers/auth.service';
 
 /**
  * Class to connect to Users table and perform business operations
- *
- * @class
- * @description Provides methods for user management including finding all users
- *              and finding users by ID. Handles database operations for the
- *              users table.
- *
- * @category Services
- * @since 1.0.0
- * constructor(private readonly usersService: UsersService) {}
- *
- * const users = await usersService.findAll({ role: 'student' }, 10, 1);
- * ```
+ * @class UsersService
+ * @constructor
+ * @memberof module:users/providers
  */
 @Injectable()
 export class UsersService {
   /**
    * Creates an instance of UsersService
-   *
-   * @constructor
-   * @description Injects the AuthService to handle authentication checks
-   *
-   * @param authService - The authentication service for verifying user credentials
-   *
-   * @remarks
-   * Uses forwardRef to resolve circular dependency between UsersModule and AuthModule
+   * @param authService - The AuthService to inject
+   * @returns Instance of UsersService
    */
   constructor(
     @Inject(forwardRef(() => AuthService))
@@ -36,12 +21,11 @@ export class UsersService {
   ) {}
 
   /**
-   * @description This method is used to find all users
-   * @method findAll
-   * @param {GetUsersParamDto} getUsersParamDto - The parameters to filter the users by
-   * @param {number} limit - The limit of users to return
-   * @param {number} page - The page of users to return
-   * @returns array of users
+   * Find all users
+   * @param getUsersParamDto - The parameters to filter the users by
+   * @param limit - The limit of users to return
+   * @param page - The page of users to return
+   * @returns Array of users
    */
   public findAll(
     getUsersParamDto: GetUsersParamDto,
@@ -64,10 +48,9 @@ export class UsersService {
   }
 
   /**
-   * @description This method is used to find a user by ID
-   * @method findOneById
-   * @param id: string - The ID of the user to find
-   * @returns user object
+   * Finding a single user using the ID of the user
+   * @param id - The ID of the user to find
+   * @returns User object
    */
   public findOneById(id: string) {
     return {

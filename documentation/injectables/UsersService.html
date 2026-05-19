@@ -142,13 +142,7 @@
             </p>
             <p class="comment">
                 <p>Class to connect to Users table and perform business operations</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-none">         and finding users by ID. Handles database operations for the
-         users table.</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">// Inject UsersService into a controller
-constructor(private readonly usersService: UsersService) {}
 
-
-// Use it to find users
-const users = await usersService.findAll({ role: &#39;student&#39; }, 10, 1);</code></pre></div>
             </p>
 
 
@@ -197,14 +191,13 @@ const users = await usersService.findAll({ role: &#39;student&#39; }, 10, 1);</c
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/users/providers/users.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/users/providers/users.service.ts:12</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
                             <div class="io-description"><p>Creates an instance of UsersService</p>
-<p>Uses forwardRef to resolve circular dependency between UsersModule and AuthModule</p>
 </div>
                             <div>
                                     <b>Parameters :</b>
@@ -231,7 +224,7 @@ const users = await usersService.findAll({ role: &#39;student&#39; }, 10, 1);</c
                                                     
                                                         <td>
                                                                 <ul>
-<li>The authentication service for verifying user credentials</li>
+<li>The AuthService to inject</li>
 </ul>
 
                                                         </td>
@@ -272,14 +265,16 @@ const users = await usersService.findAll({ role: &#39;student&#39; }, 10, 1);</c
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">src/users/providers/users.service.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">src/users/providers/users.service.ts:30</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Find all users</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -356,7 +351,7 @@ const users = await usersService.findAll({ role: &#39;student&#39; }, 10, 1);</c
 
                         </div>
                             <div class="io-description">
-                                <p>array of users</p>
+                                <p>Array of users</p>
 
                             </div>
                 </td>
@@ -385,14 +380,16 @@ const users = await usersService.findAll({ role: &#39;student&#39; }, 10, 1);</c
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="77"
-                                    class="link-to-prism">src/users/providers/users.service.ts:77</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/users/providers/users.service.ts:55</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Finding a single user using the ID of the user</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -419,7 +416,9 @@ const users = await usersService.findAll({ role: &#39;student&#39; }, 10, 1);</c
 
 
                                             <td>
-                                                    <p>: string - The ID of the user to find</p>
+                                                    <ul>
+<li>The ID of the user to find</li>
+</ul>
 
                                             </td>
                                         </tr>
@@ -431,7 +430,7 @@ const users = await usersService.findAll({ role: &#39;student&#39; }, 10, 1);</c
 
                         </div>
                             <div class="io-description">
-                                <p>user object</p>
+                                <p>User object</p>
 
                             </div>
                 </td>
@@ -450,36 +449,16 @@ import { AuthService } from &#x27;src/auth/providers/auth.service&#x27;;
 
 /**
  * Class to connect to Users table and perform business operations
- *
- * @class
- * @description Provides methods for user management including finding all users
- *              and finding users by ID. Handles database operations for the
- *              users table.
- *
- * @category Services
- * @since 1.0.0
- *
- * @example
- * &#x60;&#x60;&#x60;typescript
- * // Inject UsersService into a controller
- * constructor(private readonly usersService: UsersService) {}
- *
- * // Use it to find users
- * const users &#x3D; await usersService.findAll({ role: &#x27;student&#x27; }, 10, 1);
- * &#x60;&#x60;&#x60;
+ * @class UsersService
+ * @constructor
+ * @memberof module:users/providers
  */
 @Injectable()
 export class UsersService {
   /**
    * Creates an instance of UsersService
-   *
-   * @constructor
-   * @description Injects the AuthService to handle authentication checks
-   *
-   * @param authService - The authentication service for verifying user credentials
-   *
-   * @remarks
-   * Uses forwardRef to resolve circular dependency between UsersModule and AuthModule
+   * @param authService - The AuthService to inject
+   * @returns Instance of UsersService
    */
   constructor(
     @Inject(forwardRef(() &#x3D;&gt; AuthService))
@@ -487,12 +466,11 @@ export class UsersService {
   ) {}
 
   /**
-   * @description This method is used to find all users
-   * @method findAll
-   * @param {GetUsersParamDto} getUsersParamDto - The parameters to filter the users by
-   * @param {number} limit - The limit of users to return
-   * @param {number} page - The page of users to return
-   * @returns array of users
+   * Find all users
+   * @param getUsersParamDto - The parameters to filter the users by
+   * @param limit - The limit of users to return
+   * @param page - The page of users to return
+   * @returns Array of users
    */
   public findAll(
     getUsersParamDto: GetUsersParamDto,
@@ -515,10 +493,9 @@ export class UsersService {
   }
 
   /**
-   * @description This method is used to find a user by ID
-   * @method findOneById
-   * @param id: string - The ID of the user to find
-   * @returns user object
+   * Finding a single user using the ID of the user
+   * @param id - The ID of the user to find
+   * @returns User object
    */
   public findOneById(id: string) {
     return {
