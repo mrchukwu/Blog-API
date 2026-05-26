@@ -60,7 +60,6 @@ export class UsersController {
     return this.usersService.findAll(getUsersParamDto, limit, page);
   }
 
-  @Post()
   @ApiOperation({
     summary: 'Creates a new user',
     description: 'Creates a new user with the provided details',
@@ -89,9 +88,9 @@ export class UsersController {
     status: 500,
     description: 'Internal server error',
   })
+  @Post()
   public createUsers(@Body() createUserDto: CreateUserDto) {
-    console.log(createUserDto);
-    return 'You sent a post request to users endpoint';
+    return this.usersService.createUser(createUserDto);
   }
 
   @Put()

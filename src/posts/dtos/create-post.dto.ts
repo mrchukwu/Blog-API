@@ -17,7 +17,7 @@ import { Type } from 'class-transformer';
 
 import { postType } from '../enums/post-type.enum';
 import { postStatus } from '../enums/post-status.enum';
-import { CreatePostMetaOptionsDto } from './create-post-meta-options.dto';
+import { CreatePostMetaOptionsDto } from '../../meta-options/dtos/create-post-meta-options.dto';
 
 export class CreatePostDto {
   @ApiProperty({
@@ -30,7 +30,7 @@ export class CreatePostDto {
   @MinLength(4, {
     message: 'Title must be at least 4 characters long',
   })
-  @MaxLength(150, {
+  @MaxLength(512, {
     message: 'Title must be at most 150 characters long',
   })
   title: string;
@@ -55,6 +55,9 @@ export class CreatePostDto {
   })
   @IsString()
   @IsNotEmpty()
+  @MaxLength(256, {
+    message: 'Slug must be at most 256 characters long',
+  })
   @Matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
     message:
       'A slug should be all small letters and uses only "-" and without spaces. For example "my-url" ',
@@ -125,6 +128,9 @@ export class CreatePostDto {
   })
   @IsString()
   @IsOptional()
+  @MaxLength(1024, {
+    message: 'Featured image url must be at most 1024 characters long',
+  })
   @IsUrl()
   featuredImageUrl?: string;
 
@@ -149,36 +155,18 @@ export class CreatePostDto {
   @MinLength(3, { each: true })
   tags?: string[];
 
-  @ApiPropertyOptional({
-    type: 'array',
-    required: false,
-    items: {
-      type: 'object',
-      properties: {
-        key: {
-          type: 'string',
-          description:
-            'The key can be any string identifier for your meta option',
-          example: 'sidebarEnabled',
-        },
-        value: {
-          type: 'string',
-          description: 'Any value you want to save to the key',
-          example: true,
-        },
+  @ApiProperty({
+    type: 'object',
+    properties: {
+      metaValue: {
+        type: 'string',
+        description: 'JSON string containing meta options',
+        example: '{"sidebarEnabled":true, "footerActive":true}',
       },
     },
-    description: 'The meta options of the post',
-    example: [
-      {
-        key: 'canonical',
-        value: 'https://example.com/post',
-      },
-    ],
   })
-  @IsArray()
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => CreatePostMetaOptionsDto)
-  metaOptions?: CreatePostMetaOptionsDto[];
+  metaOptions?: CreatePostMetaOptionsDto;
 }

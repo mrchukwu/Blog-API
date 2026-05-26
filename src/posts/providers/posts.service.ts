@@ -1,11 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/providers/users.service';
 import { CreatePostDto } from '../dtos/create-post.dto';
+import { Repository } from 'typeorm';
+import { Post } from '../post.entity';
+import { MetaOption } from 'src/meta-options/meta-option.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class PostsService {
-  //  Injecting UsersService
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    /**
+     * Injecting service
+     */
+    private readonly userService: UsersService,
+
+    /**
+     * Inject PostRepository
+     */
+    @InjectRepository(Post)
+    private readonly postsRepository: Repository<Post>,
+
+    /**
+     * Inject MetaOptionRepository
+     */
+    @InjectRepository(MetaOption)
+    private readonly metaOptionRepository: Repository<MetaOption>,
+  ) {}
+
+  /**
+   * Creating new posts
+   * @param createPostDto
+   * @returns
+   */
+  public async create(createPostDto: CreatePostDto) {
+    // create Post
+    const post = this.postsRepository.create(createPostDto);
+
+    // return the post
+    return await this.postsRepository.save(post);
+  }
+
   public findAll(userId: string) {
     // console.log('🚀 ~ PostsService ~ findAll ~ userId:', userId);
     //  Users Service

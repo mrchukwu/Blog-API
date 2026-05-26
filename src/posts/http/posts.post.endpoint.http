@@ -2,14 +2,15 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "title": "What's new in NestJS 6",
+  "title": "Nestjs good for enterprice applications",
   "postType": "post",
-  "slug": "whats-new-in-nestjs-6",
+  "slug": "builiding-enterprise-applications",
   "status": "draft",
-  "content": "What's new in NestJS 6 and how it scales application",
+  "content": "Nestjs is a robust language, with modules, seervices and controllers. It's good for enterprise applications",
   "schema": "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"age\":{\"type\":\"number\"}}}",
   "featuredImageUrl": "https://example.com/nestjs-6.jpg",
   "publishOn": "2026-05-18T12:00:00",
-  "tags": ["Nestjs", "Nestjs 6", "Nestjs 6 features", "TypeScript", "WebDevelopment", "BackendDevelopment", "SoftwareDevelopment"],
-  "metaOptions": [{"key": "testKey", "value": 20}]
+  "metaOptions": {
+    "metaValue": "{\"sidebarEnabled\":true}"
+  }
 }

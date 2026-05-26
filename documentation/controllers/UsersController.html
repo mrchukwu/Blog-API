@@ -242,7 +242,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiOperation({summary: &#x27;Creates a new user&#x27;, description: &#x27;Creates a new user with the provided details&#x27;})<br />@ApiResponse({status: 201, description: &#x27;User created successfully&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Invalid user data&#x27;})<br />@ApiResponse({status: 409, description: &#x27;User already exists&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized: You are not logged in&#x27;})<br />@ApiResponse({status: 403, description: &#x27;Forbidden: You do not have permission to create a user&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error&#x27;})<br /></code>
+                    <code>@ApiOperation({summary: &#x27;Creates a new user&#x27;, description: &#x27;Creates a new user with the provided details&#x27;})<br />@ApiResponse({status: 201, description: &#x27;User created successfully&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Invalid user data&#x27;})<br />@ApiResponse({status: 409, description: &#x27;User already exists&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Unauthorized: You are not logged in&#x27;})<br />@ApiResponse({status: 403, description: &#x27;Forbidden: You do not have permission to create a user&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error&#x27;})<br />@Post()<br /></code>
                 </td>
             </tr>
 
@@ -285,7 +285,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -325,8 +325,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="109"
-                                    class="link-to-prism">src/users/users.controller.ts:109</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/users/users.controller.ts:108</a></div>
                         </td>
                     </tr>
 
@@ -478,8 +478,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="103"
-                                    class="link-to-prism">src/users/users.controller.ts:103</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/users/users.controller.ts:102</a></div>
                         </td>
                     </tr>
 
@@ -555,8 +555,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="98"
-                                    class="link-to-prism">src/users/users.controller.ts:98</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/users/users.controller.ts:97</a></div>
                         </td>
                     </tr>
 
@@ -638,7 +638,6 @@ export class UsersController {
     return this.usersService.findAll(getUsersParamDto, limit, page);
   }
 
-  @Post()
   @ApiOperation({
     summary: &#x27;Creates a new user&#x27;,
     description: &#x27;Creates a new user with the provided details&#x27;,
@@ -667,9 +666,9 @@ export class UsersController {
     status: 500,
     description: &#x27;Internal server error&#x27;,
   })
+  @Post()
   public createUsers(@Body() createUserDto: CreateUserDto) {
-    console.log(createUserDto);
-    return &#x27;You sent a post request to users endpoint&#x27;;
+    return this.usersService.createUser(createUserDto);
   }
 
   @Put()
